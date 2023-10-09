@@ -1,0 +1,24 @@
+﻿@model Courses.Web.ViewModels.Pagination.BasePaging
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item" onclick="fillPage(@Model.PreviousPage)">
+                <a class="page-link">«</a>
+            </li>
+        }
+        @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+        {
+            <li class="page-item @(Model.Page == i ? "active" : "")" onclick="fillPage(@i)">
+                <a class="page-link">@i</a>
+            </li>
+        }
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link" onclick="fillPage(@Model.NextPage)">»</a>
+            </li>
+        }
+    </ul>
+</nav>

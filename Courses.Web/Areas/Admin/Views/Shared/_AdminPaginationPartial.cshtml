@@ -1,0 +1,23 @@
+﻿@model Courses.Web.ViewModels.Pagination.BasePaging
+
+
+<ul class="pagination">
+    @if (Model.HasPreviousPage)
+    {
+        <li onclick="fillPage(@Model.PreviousPage)">
+            <a>«</a>
+        </li>
+    }
+    @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+    {
+        <li class="@(Model.Page == i ? "active" : "")" onclick="fillPage(@i)">
+            <a>@i</a>
+        </li>
+    }
+    @if (Model.HasNextPage)
+    {
+        <li>
+            <a onclick="fillPage(@Model.NextPage)">»</a>
+        </li>
+    }
+</ul>

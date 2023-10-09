@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<!--
+BeyondAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
+Version: 1.6.0
+Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB06R48S4
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/x-icon">
+    <partial name="_AdminHeaderReferences"/>
+    @await RenderSectionAsync("ExtraHeaderReferences", false)
+</head>
+<body>
+<div class="loading-container">
+    <div class="loader"></div>
+</div>
+<div class="main-container container-fluid">
+    <div class="">
+        <div class="">
+            <div class="page-header position-relative">
+                <div class="header-title">
+                    <h1>
+                        @ViewData["Title"]
+                    </h1>
+                </div>
+                <div class="header-buttons">
+                    <a class="refresh" id="refresh-toggler" href="javascript:location.reload();">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                    </a>
+                    <a class="fullscreen" id="fullscreen-toggler" href="#">
+                        <i class="glyphicon glyphicon-fullscreen"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="page-body">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_AdminFooterReferences"/>
+<partial name="_ValidationScriptsPartial"/>
+@await RenderSectionAsync("ExtraFooterReferences", false)
+</body>
+</html>

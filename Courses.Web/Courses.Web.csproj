@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.22" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.22" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.22" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.22">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.22" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.22" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.22">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+        <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+        <PackageReference Include="SixLabors.ImageSharp" Version="1.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\content\images\courses\7df4e5947e4e49f29e8833daab792042.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\content\images\courses\b41bb2eb0dae4361a7aeaf14c91015db.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\content\images\courses\d090e82e11db4f748d7de597c6994730.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\content\images\courses\thumbs\7df4e5947e4e49f29e8833daab792042.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\content\images\courses\thumbs\b41bb2eb0dae4361a7aeaf14c91015db.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\content\images\courses\thumbs\d090e82e11db4f748d7de597c6994730.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\content\videos\97793d3d41a948ca8808a9368df8e741.mp4" />
+    </ItemGroup>
+
+</Project>

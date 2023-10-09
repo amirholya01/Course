@@ -1,0 +1,34 @@
+﻿@using Courses.Web.Utilities.ImageHandler
+@model Courses.Web.ViewModels.Courses.FilterCoursesViewModel
+
+@{
+    ViewData["Title"] = "Courses list";
+}
+
+<div class="container mt-4">
+    <form method="get" id="filter-form">
+        <div class="row">
+            @if (Model.Entities.Any())
+            {
+                foreach (var course in Model.Entities)
+                {
+                    <div class="col-md-3 mb-3">
+                        <div class="card">
+                            <img src="@PathTools.GetStaticFilePath(StaticFilePath.Course, StaticFileType.Thumbnail, StaticFileUseCase.Show)@course.Image" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">@course.Title</h5>
+                                <p class="card-text">@course.ShortDescription</p>
+                                <a asp-area="" asp-controller="Course" asp-action="CourseDetail" asp-route-courseId="@course.Id" asp-route-courseName="@course.Title.Replace(" ", "-")" class="btn btn-primary">
+                                    Show detail
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div>
+            <partial name="_PagingPartial" model="@Model.GetCurrentPaging()"/>
+        </div>
+    </form>
+</div>

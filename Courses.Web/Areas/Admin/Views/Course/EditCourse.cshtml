@@ -1,0 +1,146 @@
+﻿@using Courses.Web.Entities.Courses
+@using Courses.Web.Utilities.ImageHandler
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Courses.Web.ViewModels.Courses.EditCourseViewModel
+
+@{
+    ViewData["Title"] = "Edit course";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#main-information">
+                        Main information
+                    </a>
+                </li>
+
+                <li>
+                    <a data-toggle="tab" href="#sessions">
+                        Sessions
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content radius-bordered">
+                <div id="main-information" class="tab-pane in active">
+                    <form method="post" id="filter-form" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="CourseId"/>
+                        <input type="hidden" asp-for="ImageName"/>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="well with-header">
+                                    <div class="header bordered-warning">
+                                        Course information
+                                    </div>
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Title</label>
+                                                    <input asp-for="Title" class="form-control">
+                                                </div>
+                                                <span class="text-danger" asp-validation-for="Title"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Course type</label>
+                                                    <select asp-for="CourseType" class="form-control" asp-items="@Html.GetEnumSelectList<CourseType>()"></select>
+                                                </div>
+                                                <span class="text-danger" asp-validation-for="CourseType"></span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Short description</label>
+                                                    <textarea asp-for="ShortDescription" rows="4" class="form-control"></textarea>
+                                                </div>
+                                                <span class="text-danger" asp-validation-for="ShortDescription"></span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Text</label>
+                                                    <textarea asp-for="Description" ckeditor="1" rows="4" class="form-control"></textarea>
+                                                </div>
+                                                <span class="text-danger" asp-validation-for="Description"></span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input asp-for="IsActive" type="checkbox" class="colored-success">
+                                                        <span class="text">Active</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-warning">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="well with-header">
+                                    <div class="header bordered-warning">
+                                        Course image
+                                    </div>
+                                    <div>
+                                        <img src="@PathTools.GetStaticFilePath(StaticFilePath.Course, StaticFileType.Main, StaticFileUseCase.Show)@Model.ImageName" style="width: 100%" ImageFile="course-image" alt="default image">
+                                        <input type="file" asp-for="Image" accept=".png,.jpeg,.jpg" ImageInput="course-image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="sessions" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12 margin-bottom-20">
+                            <button custom-popup-page
+                                    custom-popup-page-url="@Url.ActionLink("CreateCourseSession", "Course", new { area = "Admin", id = Model.CourseId })"
+                                    custom-popup-page-target="CreateCourseSession"
+                                    custom-popup-page-handler="createCourseSessionHandler"
+                                    class="btn btn-success">
+                                Add new session
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="sessions-list-box" class="table-responsive"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ExtraFooterReferences
+{
+    <script>
+    function loadAllSessions(){
+        let sessionsBox = $('#sessions-list-box');
+        $.get('/Admin/Course/CourseSessions?courseId=' + @Model.CourseId).then(res => {
+            $(sessionsBox).html(res);
+            generateCustomPopupOpenerHandler();
+        });
+    }
+    
+    $(document).ready(function (){
+        loadAllSessions();
+    });
+    
+    function createCourseSessionHandler(res){
+        loadAllSessions();
+    }
+    
+    function editCourseSessionHandler(res){
+         loadAllSessions();
+    }
+    </script>
+}

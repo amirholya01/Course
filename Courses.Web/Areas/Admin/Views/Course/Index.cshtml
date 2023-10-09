@@ -1,0 +1,102 @@
+﻿@using Courses.Web.Utilities.ImageHandler
+@using Courses.Web.ViewModels.Courses
+@model Courses.Web.ViewModels.Courses.FilterCoursesViewModel
+@{
+    ViewData["Title"] = "Courses list";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="well with-header">
+            <div class="header bordered-blue">
+                Filter
+            </div>
+            <div>
+                <form method="get" id="filter-form">
+                    <input type="hidden" asp-for="Page"/>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input asp-for="Title" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Course type</label>
+                        <select asp-for="Type" asp-items="@Html.GetEnumSelectList<FilterCourseType>()" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Course status</label>
+                        <select asp-for="Status" asp-items="@Html.GetEnumSelectList<FilterCourseStatus>()" class="form-control"></select>
+                    </div>
+                    <button type="submit" class="btn btn-blue">Filter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="well with-header with-footer">
+            <div class="header bordered-blue">
+                @ViewData["Title"]
+            </div>
+            <div>
+                @if (Model.Entities.Any())
+                {
+                    <div class="table-scrollable">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Commands</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var course in Model.Entities)
+                            {
+                                <tr>
+                                    <td>
+                                        <img 
+                                            src="@PathTools.GetStaticFilePath(StaticFilePath.Course, StaticFileType.Thumbnail, StaticFileUseCase.Show)@course.Image" 
+                                            alt="@course.Title"
+                                            width="100">
+                                    </td>
+                                    <td>
+                                        @course.Title
+                                    </td>
+                                    <td>
+                                        @if (course.IsActive)
+                                        {
+                                            <a class="btn btn-success" href="javascript:void(0);">Active <i class="fa fa-check right"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-danger" href="javascript:void(0);"><i class="fa fa-times"></i> Not active</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-area="Admin" asp-controller="Course" asp-action="EditCourse" asp-route-id="@course.Id"
+                                           class="btn btn-warning btn-circle btn-xs">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-circle btn-xs">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        <p>There is no information</p>
+                    </div>
+                }
+            </div>
+            <div class="footer">
+                <partial name="_AdminPaginationPartial" model="@Model.GetCurrentPaging()"/>
+            </div>
+        </div>
+    </div>
+</div>

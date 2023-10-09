@@ -1,0 +1,105 @@
+﻿@using Courses.Web.Entities.Courses
+@using Courses.Web.Utilities.ImageHandler
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Courses.Web.ViewModels.Courses.CreateCourseViewModel
+
+@{
+    ViewData["Title"] = "Create course";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#main-information">
+                        Main information
+                    </a>
+                </li>
+
+                <li>
+                    <a data-toggle="tab" href="#sessions">
+                        Sessions
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content radius-bordered">
+                <div id="main-information" class="tab-pane in active">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="well with-header">
+                                    <div class="header bordered-success">
+                                        Course information
+                                    </div>
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Title</label>
+                                                    <input asp-for="Title" class="form-control">
+                                                </div>
+                                                <span class="text-danger" asp-validation-for="Title"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Course type</label>
+                                                    <select asp-for="CourseType" class="form-control" asp-items="@Html.GetEnumSelectList<CourseType>()"></select>
+                                                </div>
+                                                <span class="text-danger" asp-validation-for="CourseType"></span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Short description</label>
+                                                    <textarea asp-for="ShortDescription" rows="4" class="form-control"></textarea>
+                                                </div>
+                                                <span class="text-danger" asp-validation-for="ShortDescription"></span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Text</label>
+                                                    <textarea asp-for="Description" ckeditor="1" rows="4" class="form-control"></textarea>
+                                                </div>
+                                                <span class="text-danger" asp-validation-for="Description"></span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input asp-for="IsActive" type="checkbox" class="colored-success" checked="checked">
+                                                        <span class="text">Active</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="well with-header">
+                                    <div class="header bordered-success">
+                                        Course image
+                                    </div>
+                                    <div>
+                                        <img src="/assets/defaults/default.png" style="width: 100%" ImageFile="course-image" alt="default image">
+                                        <input type="file" asp-for="Image" accept=".png,.jpeg,.jpg" ImageInput="course-image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="sessions" class="tab-pane">
+                    <div class="alert alert-warning">
+                        <p>You should create course first !!!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

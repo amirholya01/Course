@@ -1,0 +1,84 @@
+﻿@using Courses.Web.Entities.Courses
+@model Courses.Web.ViewModels.Courses.CreateCourseSessionViewModel
+
+@{
+    Layout = "_AdminEmptyLayout";
+    ViewData["Title"] = "Create session";
+}
+
+@section ExtraFooterReferences
+{
+    <script src="/lib/custom-popup/custom-popup.js"></script>
+    <script>
+        window.onbeforeunload = () => {
+          window.opener[closeHandler]();
+        };
+    </script>
+
+    @if (TempData["ClosePopup"] != null)
+    {
+        <script>
+            window.close();
+        </script>
+    }
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post"
+              asp-area="Admin" asp-controller="Course" asp-action="CreateCourseSession" asp-route-id="@ViewBag.Id"
+              enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well with-header">
+                        <div class="header bordered-success">
+                            Session information
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Title</label>
+                                        <input asp-for="Title" class="form-control">
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="Title"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Display order</label>
+                                        <input asp-for="DisplayOrder" class="form-control">
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="DisplayOrder"></span>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Aditional description</label>
+                                        <textarea asp-for="AdditionalDescription" rows="4" class="form-control"></textarea>
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="AdditionalDescription"></span>
+                                </div>
+                                <div class="col-md-12 @(ViewBag.CourseType != CourseType.Text ? "d-none-important" : "")">
+                                    <div class="form-group">
+                                        <label>Text</label>
+                                        <textarea asp-for="Text" ckeditor="1" rows="4" class="form-control"></textarea>
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="Text"></span>
+                                </div>
+                                <div class="col-md-12 @(ViewBag.CourseType != CourseType.Video ? "d-none-important" : "")">
+                                    <div class="form-group">
+                                        <label>Video</label>
+                                        <input type="file" name="Video" accept=".mp4"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
